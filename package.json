@@ -1,0 +1,25 @@
+{
+  "name": "OOP",
+  "version": "1.0.0",
+  "description": "This is composed of Index.js This is a github repo generator using node.js to prompt the user a series of question to be dynamically injected into a seperate final readme file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrennanPredmore/OOP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrennanPredmore/OOP/issues"
+  },
+  "homepage": "https://github.com/BrennanPredmore/OOP#readme",
+  "keywords": [],
+  "dependencies": {
+    "inquirer": "^7.0.4",
+    "jest": "^25.1.0"
+  }
+}
