@@ -20,6 +20,8 @@
   "keywords": [],
   "dependencies": {
     "inquirer": "^7.0.4",
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "node": "^13.8.0",
+    "nodemon": "^2.0.2"
   }
 }
