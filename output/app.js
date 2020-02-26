@@ -84,8 +84,17 @@ function promptUser() {
     ]);
 }
 
-function generateReadme(response, answer, answersURL) {
+function generateHTML(response, answer, answersURL) {
     return `
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OOP TEAM</title>
+    </head>
+    <body>
         ${answer.manager_name}
             ${answer.manager_id}
                 ${answer.manager_email}
@@ -101,13 +110,16 @@ function generateReadme(response, answer, answersURL) {
             ${answer.engineer_id}
                 ${answer.engineer_email}
                             ${answer.chooseTeamMember}
+    </body>
+    </html>
 
+    `
 }
         //IF STATEMENT FOR CHOICE VALIDATION:
         promptUser()
         .then(function(answer) {
           if (answer.chooseTeamMember === 'Manager') {
-            nextQuestionSet === answer.inern_name || answer.engineer_name
+            nextQuestionSet() === answer.inern_name || answer.engineer_name
           }
           if (answer.chooseTeamMember === 'Intern') {
          
@@ -118,6 +130,7 @@ function generateReadme(response, answer, answersURL) {
           if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
       
           }
+          return writeFileSync("team.html", html);
         })
         .catch(function(err) {
           console.log(err);
