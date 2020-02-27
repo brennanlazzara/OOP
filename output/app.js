@@ -182,11 +182,6 @@ p {
     </body>
     
     </html>
-
-
-
-
-
 `
 }
 
@@ -197,23 +192,23 @@ let internCardArray = []
 
 function handleAnswers(answer) {
     //GENERATE CARDS
-    if(answer.hasOwnProperty('manager_name')){
-      var managerCardHTML = managerCard(answer)
-      managerCardArray.push(managerCardHTML)
+    if (answer.hasOwnProperty('manager_name')) {
+        var managerCardHTML = managerCard(answer)
+        managerCardArray.push(managerCardHTML)
     }
-    if(answer.hasOwnProperty('engineer_name')){
+    if (answer.hasOwnProperty('engineer_name')) {
         var engineerCardHTML = engineerCard(answer)
         engineerCardArray.push(engineerCardHTML)
-      }
+    }
 
-      if(answer.hasOwnProperty('intern_name')){
+    if (answer.hasOwnProperty('intern_name')) {
         var internCardHTML = internCard(answer)
         internCardArray.push(internCardHTML)
-      }
+    }
 
 
-      //IF STATEMENT FOR CHOICE VALIDATION:
-    if (answer.chooseTeamMember === 'Intern') {     
+    //IF STATEMENT FOR CHOICE VALIDATION:
+    if (answer.chooseTeamMember === 'Intern') {
 
         return askInternQuestions().then(handleAnswers)
 
@@ -227,19 +222,19 @@ function handleAnswers(answer) {
     if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
         return writeFileSync("team.html", html);
     }
-    }
-    // manager for loop
-    for(var i = 0; i < managerCardArray.length; i++){
+}
+// manager for loop
+for (var i = 0; i < managerCardArray.length; i++) {
 
-    }
-    //engineer for loop
-    for(var i = 0; i < engineerCardArray.length; i++ ){
+}
+//engineer for loop
+for (var i = 0; i < engineerCardArray.length; i++) {
 
-    }
-    //intern for loop
-    for(var i = 0; i < internCardArray.length; i++ ){
+}
+//intern for loop
+for (var i = 0; i < internCardArray.length; i++) {
 
-    }
+}
 askManagerQuestions()
     .then(handleAnswers)
     .catch(function (err) {
