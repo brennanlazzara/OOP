@@ -1,11 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require('util');
-const axios = require('inquirer');
 
 const writeFileSync = util.promisify(fs.writeFile);
 
-function promptUser() {
+function askManagerQuestions() {
     return inquirer.prompt([{
 
             //MANAGER QUESTIONS
@@ -31,108 +30,218 @@ function promptUser() {
             message: "Which type of team member would you like to be?"
         },
 
-
-        // INTERN QUESTIONS:
-        {
-            type: "input",
-            name: "inern_name",
-            message: "What is your intern’s name?"
-
-        },
-        {
-            type: "input",
-            name: "intern_id",
-            message: "2. What is your intern’s id?"
-        },
-        {
-            type: "input",
-            name: "intern_email",
-            message: "What is your intern’s email?"
-        },
-        {
-            type: "list",
-            name: "chooseTeamMember",
-            choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
-            message: "Which type of team member would you like to be?"
-        },
-
-
-        // ENGINEER QUESTIONS:
-        {
-            type: "input",
-            name: "engineer_name",
-            message: "What is your engineer’s name?"
-
-        },
-        {
-            type: "input",
-            name: "engineer_id",
-            message: "2. What is your engineer’s id?"
-        },
-        {
-            type: "input",
-            name: "engineer_email",
-            message: "What is your engineer’s email?"
-        },
-        {
-            type: "list",
-            name: "chooseTeamMember",
-            choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
-            message: "Which type of team member would you like to be?"
-        },
-
-    ]);
+    ])
 }
 
-function generateHTML(response, answer, answersURL) {
+function askInternQuestions() {
+    return inquirer.prompt(internQuestions)
+}
+// INTERN QUESTIONS:
+let internQuestions = [{
+        type: "input",
+        name: "intern_name",
+        message: "What is your intern’s name?"
+
+    },
+    {
+        type: "input",
+        name: "intern_id",
+        message: "2. What is your intern’s id?"
+    },
+    {
+        type: "input",
+        name: "intern_email",
+        message: "What is your intern’s email?"
+    },
+    {
+        type: "list",
+        name: "chooseTeamMember",
+        choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
+        message: "Which type of team member would you like to be?"
+    },
+]
+
+function askEngineerQuestions() {
+    return inquirer.prompt(engineerQuestions)
+}
+// ENGINEER QUESTIONS:
+let engineerQuestions = [{
+        type: "input",
+        name: "engineer_name",
+        message: "What is your engineer’s name?"
+
+    },
+    {
+        type: "input",
+        name: "engineer_id",
+        message: "2. What is your engineer’s id?"
+    },
+    {
+        type: "input",
+        name: "engineer_email",
+        message: "What is your engineer’s email?"
+    },
+    {
+        type: "list",
+        name: "chooseTeamMember",
+        choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
+        message: "Which type of team member would you like to be?"
+    },
+]
+
+function managerCard(answer) {
+    return `      <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">${answer.manager_name}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${answer.manager_id}</h6>
+      <p class="card-text">${answer.manager_email}</p>
+    </div>
+  </div>`
+}
+
+function engineeerCard(answer) {
+    return `      <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">${answer.intern_name}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${answer.intern_id}</h6>
+      <p class="card-text">${answer.intern_email}</p>
+    </div>
+  </div>`
+}
+
+function internCard(answer) {
+    return `      <div class="card" style="width: 18rem;">
+<div class="card-body">
+  <h5 class="card-title">${answer.engineer_name}</h5>
+  <h6 class="card-subtitle mb-2 text-muted">${answer.engineer_id}</h6>
+  <p class="card-text">${answer.engineer_email}</p>
+</div>
+</div>`
+}
+
+function generateHTML(response, answer) {
     return `
 
     <!DOCTYPE html>
     <html lang="en">
+    
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>OOP TEAM</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <link rel="stylesheet" href="style.css">
+      <title>OOP TEAM</title>
     </head>
+    
     <body>
-        ${answer.manager_name}
-            ${answer.manager_id}
-                ${answer.manager_email}
-                    ${answer.chooseTeamMember}
+      <Header>
+        <h1>My Team</h1>
+      </Header>
+      <style>
+    body {
+background-image: url('/assets/images/background-blur-clean-clear-531880.jpg');
+}
 
-      ${answer.intern_name}
-            ${answer.intern_id}
-                ${answer.intern_email}
-                       ${answer.chooseTeamMember}
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2%;
+    padding: 2%;
+    border: 10px ridge red;
+}
 
+.card {
+    margin: auto;
+    text-align: center;
+    border: 5px ridge red;
+    background-color: #333;
+    margin-bottom: 2%;
 
-         ${answer.engineer_name}
-            ${answer.engineer_id}
-                ${answer.engineer_email}
-                            ${answer.chooseTeamMember}
+}
+
+.card-title {
+    color: #fff;
+    font-weight: bolder;
+    font-size: 2.25rem;
+}
+
+.text-muted {
+    color: red !important;
+
+}
+
+p {
+    border-top: 5px ridge red;
+    color: #fff;
+}
+  </style>
+
+      <script src="app.js"></script>
     </body>
+    
     </html>
 
-    `
+
+
+
+
+`
 }
-        //IF STATEMENT FOR CHOICE VALIDATION:
-        promptUser()
-        .then(function(answer) {
-          if (answer.chooseTeamMember === 'Manager') {
-            nextQuestionSet() === answer.inern_name || answer.engineer_name
-          }
-          if (answer.chooseTeamMember === 'Intern') {
-         
-          }
-          if (answer.chooseTeamMember === 'Engineer') {
-           
-          }
-          if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
-      
-          }
-          return writeFileSync("team.html", html);
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      
+
+let managerCardArray = []
+let engineerCardArray = []
+let internCardArray = []
+
+
+function handleAnswers(answer) {
+    //GENERATE CARDS
+    if(answer.hasOwnProperty('manager_name')){
+      var managerCardHTML = managerCard(answer)
+      managerCardArray.push(managerCardHTML)
+    }
+    if(answer.hasOwnProperty('engineer_name')){
+        var engineerCardHTML = engineerCard(answer)
+        engineerCardArray.push(engineerCardHTML)
+      }
+
+      if(answer.hasOwnProperty('intern_name')){
+        var internCardHTML = internCard(answer)
+        internCardArray.push(internCardHTML)
+      }
+
+
+      //IF STATEMENT FOR CHOICE VALIDATION:
+    if (answer.chooseTeamMember === 'Intern') {     
+
+        return askInternQuestions().then(handleAnswers)
+
+    }
+    if (answer.chooseTeamMember === 'Engineer') {
+        return askEngineerQuestions().then(handleAnswers)
+    }
+    if (answer.chooseTeamMember === 'Manager') {
+        return askManagerQuestions().then(handleAnswers)
+    }
+    if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
+        return writeFileSync("team.html", html);
+    }
+    }
+    // manager for loop
+    for(var i = 0; i < managerCardArray.length; i++){
+
+    }
+    //engineer for loop
+    for(var i = 0; i < engineerCardArray.length; i++ ){
+
+    }
+    //intern for loop
+    for(var i = 0; i < internCardArray.length; i++ ){
+
+    }
+askManagerQuestions()
+    .then(handleAnswers)
+    .catch(function (err) {
+        console.log(err);
+    });
