@@ -99,7 +99,7 @@ function managerCard(answer) {
   </div>`
 }
 
-function engineeerCard(answer) {
+function internCard(answer) {
     return `      <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">${answer.intern_name}</h5>
@@ -109,7 +109,7 @@ function engineeerCard(answer) {
   </div>`
 }
 
-function internCard(answer) {
+function engineerCard(answer) {
     return `      <div class="card" style="width: 18rem;">
 <div class="card-body">
   <h5 class="card-title">${answer.engineer_name}</h5>
@@ -119,7 +119,7 @@ function internCard(answer) {
 </div>`
 }
 
-function generateHTML(response, answer) {
+function generateHTML(cards) {
     return `
 
     <!DOCTYPE html>
@@ -137,7 +137,9 @@ function generateHTML(response, answer) {
     <body>
       <Header>
         <h1>My Team</h1>
-      </Header>
+       
+      </Header> 
+      ${cards}
       <style>
     body {
 background-image: url('/assets/images/background-blur-clean-clear-531880.jpg');
@@ -197,6 +199,7 @@ function handleAnswers(answer) {
         managerCardArray.push(managerCardHTML)
     }
     if (answer.hasOwnProperty('engineer_name')) {
+        console.log(answer);
         var engineerCardHTML = engineerCard(answer)
         engineerCardArray.push(engineerCardHTML)
     }
@@ -220,21 +223,26 @@ function handleAnswers(answer) {
         return askManagerQuestions().then(handleAnswers)
     }
     if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
-        return writeFileSync("team.html", html);
+
+        let html = "";
+        // manager for loop
+        for (var i = 0; i < managerCardArray.length; i++) {
+            html += managerCardArray[i];
+        }
+
+        //engineer for loop
+        for (var i = 0; i < engineerCardArray.length; i++) {
+            html += engineerCardArray[i];
+        }
+        //intern for loop
+        for (var i = 0; i < internCardArray.length; i++) {
+            html += internCardArray[i];
+        }
+
+        return writeFileSync("team.html", generateHTML(html));
     }
 }
-// manager for loop
-for (var i = 0; i < managerCardArray.length; i++) {
 
-}
-//engineer for loop
-for (var i = 0; i < engineerCardArray.length; i++) {
-
-}
-//intern for loop
-for (var i = 0; i < internCardArray.length; i++) {
-
-}
 askManagerQuestions()
     .then(handleAnswers)
     .catch(function (err) {
