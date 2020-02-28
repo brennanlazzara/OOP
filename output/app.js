@@ -92,7 +92,7 @@ let engineerQuestions = [{
 function managerCard(answer) {
     return `      <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">${answer.manager_name}</h5>
+      <h5 class="card-title">Manager:<br>${answer.manager_name}</h5>
       <h6 class="card-subtitle mb-2 text-muted">${answer.manager_id}</h6>
       <p class="card-text">${answer.manager_email}</p>
     </div>
@@ -102,7 +102,7 @@ function managerCard(answer) {
 function internCard(answer) {
     return `      <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">${answer.intern_name}</h5>
+      <h5 class="card-title">Intern:<br>${answer.intern_name}</h5>
       <h6 class="card-subtitle mb-2 text-muted">${answer.intern_id}</h6>
       <p class="card-text">${answer.intern_email}</p>
     </div>
@@ -112,7 +112,7 @@ function internCard(answer) {
 function engineerCard(answer) {
     return `      <div class="card" style="width: 18rem;">
 <div class="card-body">
-  <h5 class="card-title">${answer.engineer_name}</h5>
+  <h5 class="card-title">Engineer:<br>${answer.engineer_name}</h5>
   <h6 class="card-subtitle mb-2 text-muted">${answer.engineer_id}</h6>
   <p class="card-text">${answer.engineer_email}</p>
 </div>
@@ -199,7 +199,6 @@ function handleAnswers(answer) {
         managerCardArray.push(managerCardHTML)
     }
     if (answer.hasOwnProperty('engineer_name')) {
-        console.log(answer);
         var engineerCardHTML = engineerCard(answer)
         engineerCardArray.push(engineerCardHTML)
     }
