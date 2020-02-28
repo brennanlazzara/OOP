@@ -1,9 +1,9 @@
 # OOP
 This is composed of Index.js
-This is a github repo generator using node.js to prompt the user a series of question to be dynamically injected into a seperate final readme file.
+This is a Employee team generator using node.js to prompt the user a series of question to be dynamically injected into a seperate final readme file.
 
 ## VIDEO OF THE APPLICATION!
-![GIF]()
+![GIF](https://media.giphy.com/media/kDx2eO0DkaYnP1uPD5/giphy.gif)
 
 ## Github pages 
 
@@ -12,7 +12,10 @@ This is where the main website will be launched
 
 ## Langauges Used
 
+HTML
+CSS/BOOTSTRAP
 JAVASCRIPT
+JQUERY
 NODE.JS
 
 ## Contributing
