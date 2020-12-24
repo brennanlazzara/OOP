@@ -1,126 +1,139 @@
-const inquirer = require("inquirer");
-const fs = require("fs");
+const inquirer = require('inquirer');
+const fs = require('fs');
 const util = require('util');
 
 const writeFileSync = util.promisify(fs.writeFile);
 
 function askManagerQuestions() {
-    return inquirer.prompt([{
-
-            //MANAGER QUESTIONS
-            type: "input",
-            name: "manager_name",
-            message: "What is your manager’s name?"
-
-        },
-        {
-            type: "input",
-            name: "manager_id",
-            message: "2. What is your manager’s id?"
-        },
-        {
-            type: "input",
-            name: "manager_email",
-            message: "What is your manager’s email?"
-        },
-        {
-            type: "list",
-            name: "chooseTeamMember",
-            choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
-            message: "Which type of team member would you like to be?"
-        },
-
-    ])
+  return inquirer.prompt([
+    {
+      //MANAGER QUESTIONS
+      type: 'input',
+      name: 'manager_name',
+      message: 'What is your manager’s name?',
+    },
+    {
+      type: 'input',
+      name: 'manager_id',
+      message: '2. What is your manager’s id?',
+    },
+    {
+      type: 'input',
+      name: 'manager_email',
+      message: 'What is your manager’s email?',
+    },
+    {
+      type: 'list',
+      name: 'chooseTeamMember',
+      choices: [
+        'Manager',
+        'Engineer',
+        'Intern',
+        'I don’t want to add any more team members',
+      ],
+      message: 'Which type of team member would you like to be?',
+    },
+  ]);
 }
 
 function askInternQuestions() {
-    return inquirer.prompt(internQuestions)
+  return inquirer.prompt(internQuestions);
 }
 // INTERN QUESTIONS:
-let internQuestions = [{
-        type: "input",
-        name: "intern_name",
-        message: "What is your intern’s name?"
-
-    },
-    {
-        type: "input",
-        name: "intern_id",
-        message: "2. What is your intern’s id?"
-    },
-    {
-        type: "input",
-        name: "intern_email",
-        message: "What is your intern’s email?"
-    },
-    {
-        type: "list",
-        name: "chooseTeamMember",
-        choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
-        message: "Which type of team member would you like to be?"
-    },
-]
+let internQuestions = [
+  {
+    type: 'input',
+    name: 'intern_name',
+    message: 'What is your intern’s name?',
+  },
+  {
+    type: 'input',
+    name: 'intern_id',
+    message: '2. What is your intern’s id?',
+  },
+  {
+    type: 'input',
+    name: 'intern_email',
+    message: 'What is your intern’s email?',
+  },
+  {
+    type: 'list',
+    name: 'chooseTeamMember',
+    choices: [
+      'Manager',
+      'Engineer',
+      'Intern',
+      'I don’t want to add any more team members',
+    ],
+    message: 'Which type of team member would you like to be?',
+  },
+];
 
 function askEngineerQuestions() {
-    return inquirer.prompt(engineerQuestions)
+  return inquirer.prompt(engineerQuestions);
 }
 // ENGINEER QUESTIONS:
-let engineerQuestions = [{
-        type: "input",
-        name: "engineer_name",
-        message: "What is your engineer’s name?"
-
-    },
-    {
-        type: "input",
-        name: "engineer_id",
-        message: "2. What is your engineer’s id?"
-    },
-    {
-        type: "input",
-        name: "engineer_email",
-        message: "What is your engineer’s email?"
-    },
-    {
-        type: "list",
-        name: "chooseTeamMember",
-        choices: ["Manager", "Engineer", "Intern", "I don’t want to add any more team members"],
-        message: "Which type of team member would you like to be?"
-    },
-]
+let engineerQuestions = [
+  {
+    type: 'input',
+    name: 'engineer_name',
+    message: 'What is your engineer’s name?',
+  },
+  {
+    type: 'input',
+    name: 'engineer_id',
+    message: '2. What is your engineer’s id?',
+  },
+  {
+    type: 'input',
+    name: 'engineer_email',
+    message: 'What is your engineer’s email?',
+  },
+  {
+    type: 'list',
+    name: 'chooseTeamMember',
+    choices: [
+      'Manager',
+      'Engineer',
+      'Intern',
+      'I don’t want to add any more team members',
+    ],
+    message: 'Which type of team member would you like to be?',
+  },
+];
 
 function managerCard(answer) {
-    return `      <div class="card" style="width: 18rem;">
+  return `      <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Manager:<br>${answer.manager_name}</h5>
       <h6 class="card-subtitle mb-2 text-muted">${answer.manager_id}</h6>
       <p class="card-text">${answer.manager_email}</p>
     </div>
-  </div>`
+  </div>`;
 }
 
 function internCard(answer) {
-    return `      <div class="card" style="width: 18rem;">
+  return `      <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Intern:<br>${answer.intern_name}</h5>
       <h6 class="card-subtitle mb-2 text-muted">${answer.intern_id}</h6>
       <p class="card-text">${answer.intern_email}</p>
     </div>
-  </div>`
+  </div>`;
 }
 
 function engineerCard(answer) {
-    return `      <div class="card" style="width: 18rem;">
+  return `      <div class="card" style="width: 18rem;">
 <div class="card-body">
   <h5 class="card-title">Engineer:<br>${answer.engineer_name}</h5>
   <h6 class="card-subtitle mb-2 text-muted">${answer.engineer_id}</h6>
   <p class="card-text">${answer.engineer_email}</p>
 </div>
-</div>`
+</div>`;
 }
 
 function generateHTML(cards) {
-    return `
+  return `
 
     <!DOCTYPE html>
     <html lang="en">
@@ -184,66 +197,61 @@ p {
     </body>
     
     </html>
-`
+`;
 }
 
-let managerCardArray = []
-let engineerCardArray = []
-let internCardArray = []
-
+let managerCardArray = [];
+let engineerCardArray = [];
+let internCardArray = [];
 
 function handleAnswers(answer) {
-    //GENERATE CARDS
-    if (answer.hasOwnProperty('manager_name')) {
-        var managerCardHTML = managerCard(answer)
-        managerCardArray.push(managerCardHTML)
+  //GENERATE CARDS
+  if (answer.hasOwnProperty('manager_name')) {
+    var managerCardHTML = managerCard(answer);
+    managerCardArray.push(managerCardHTML);
+  }
+  if (answer.hasOwnProperty('engineer_name')) {
+    var engineerCardHTML = engineerCard(answer);
+    engineerCardArray.push(engineerCardHTML);
+  }
+
+  if (answer.hasOwnProperty('intern_name')) {
+    var internCardHTML = internCard(answer);
+    internCardArray.push(internCardHTML);
+  }
+
+  //IF STATEMENT FOR CHOICE VALIDATION:
+  if (answer.chooseTeamMember === 'Intern') {
+    return askInternQuestions().then(handleAnswers);
+  }
+  if (answer.chooseTeamMember === 'Engineer') {
+    return askEngineerQuestions().then(handleAnswers);
+  }
+  if (answer.chooseTeamMember === 'Manager') {
+    return askManagerQuestions().then(handleAnswers);
+  }
+  if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
+    let html = '';
+    // manager for loop
+    for (var i = 0; i < managerCardArray.length; i++) {
+      html += managerCardArray[i];
     }
-    if (answer.hasOwnProperty('engineer_name')) {
-        var engineerCardHTML = engineerCard(answer)
-        engineerCardArray.push(engineerCardHTML)
+
+    //engineer for loop
+    for (var i = 0; i < engineerCardArray.length; i++) {
+      html += engineerCardArray[i];
+    }
+    //intern for loop
+    for (var i = 0; i < internCardArray.length; i++) {
+      html += internCardArray[i];
     }
 
-    if (answer.hasOwnProperty('intern_name')) {
-        var internCardHTML = internCard(answer)
-        internCardArray.push(internCardHTML)
-    }
-
-
-    //IF STATEMENT FOR CHOICE VALIDATION:
-    if (answer.chooseTeamMember === 'Intern') {
-
-        return askInternQuestions().then(handleAnswers)
-
-    }
-    if (answer.chooseTeamMember === 'Engineer') {
-        return askEngineerQuestions().then(handleAnswers)
-    }
-    if (answer.chooseTeamMember === 'Manager') {
-        return askManagerQuestions().then(handleAnswers)
-    }
-    if (answer.chooseTeamMember === 'I don’t want to add any more team members') {
-
-        let html = "";
-        // manager for loop
-        for (var i = 0; i < managerCardArray.length; i++) {
-            html += managerCardArray[i];
-        }
-
-        //engineer for loop
-        for (var i = 0; i < engineerCardArray.length; i++) {
-            html += engineerCardArray[i];
-        }
-        //intern for loop
-        for (var i = 0; i < internCardArray.length; i++) {
-            html += internCardArray[i];
-        }
-
-        return writeFileSync("team.html", generateHTML(html));
-    }
+    return writeFileSync('team.html', generateHTML(html));
+  }
 }
 
 askManagerQuestions()
-    .then(handleAnswers)
-    .catch(function (err) {
-        console.log(err);
-    });
+  .then(handleAnswers)
+  .catch(function (err) {
+    console.log(err);
+  });
